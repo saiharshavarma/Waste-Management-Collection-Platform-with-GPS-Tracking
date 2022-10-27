@@ -36,7 +36,41 @@ def register_vendor(request):
             messages.info(request, 'Passwords are not matching')
             return redirect('register_vendor')
     else:
-        return render(request, 'accounts/signup.html')
+        return render(request, 'accounts/signup_vendor.html')
+
+
+def register_customer(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        first_name, last_name = name.split(' ', 1)
+        username = request.POST['username']
+        email = request.POST['email']
+        mobile = request.POST['mobile']
+        password1 = request.POST['password']
+        password2 = request.POST['confirm_password']
+        profiletype = ProfileType.objects.get(category="Customer")
+        if password1 == password2:
+            if User.objects.filter(username=username).exists():
+                messages.info(request, 'Username taken')
+                return redirect('register_customer')
+            elif User.objects.filter(email=email).exists():
+                messages.info(request, 'Email ID already exists')
+                return redirect('register_customer')
+            else:
+                user = User.objects.create_user(
+                    first_name=first_name, last_name=last_name, username=username, email=email, password=password1)
+                user.save()
+                print("User saved")
+                profile = Profile.objects.create(
+                    user=user, mobile=mobile, category=profiletype)
+                profile.save()
+                print("Profile saved")
+                return redirect('login')
+        else:
+            messages.info(request, 'Passwords are not matching')
+            return redirect('register_customer')
+    else:
+        return render(request, 'accounts/signup_customer.html')
 
 
 def login(request):
@@ -58,3 +92,7 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('login')
+
+
+def intermediate(request):
+    return render(request, 'accounts/intermediate.html')

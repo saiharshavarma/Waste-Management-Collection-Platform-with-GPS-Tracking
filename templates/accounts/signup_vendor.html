@@ -13,7 +13,8 @@
       <form class="login-form" method="POST">
         {% csrf_token %}
         <input type="text" class="login-input" name="name" id="name" placeholder="Name" required autofocus />
-        <input type="text" class="login-input" name="username" id="username" placeholder="Name" required autofocus />
+        <input type="text" class="login-input" name="username" id="username" placeholder="Username" required
+          autofocus />
         <input type="text" class="login-input" name="email" id="email" placeholder="Email" required autofocus />
         <input type="number" class="login-input" name="mobile" id="mobile" placeholder="Phone number" required
           autofocus />
@@ -25,7 +26,7 @@
         </div>
       </form>
     </section>
-    <p>Already have an account? <a href="signin.html">Sign in</a></p>
+    <p>Already have an account? <a href="{% url 'login' %}">Sign in</a></p>
   </div>
 </div>
 
