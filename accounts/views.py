@@ -96,3 +96,15 @@ def logout(request):
 
 def intermediate(request):
     return render(request, 'accounts/intermediate.html')
+
+
+def home(request):
+    return render(request, 'homepage.html')
+
+
+def about(request):
+    return render(request, 'about.html')
+
+
+def rate(request):
+    return render(request, 'rate.html')

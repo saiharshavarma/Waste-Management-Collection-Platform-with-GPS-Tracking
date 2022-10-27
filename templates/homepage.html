@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+<div class="wrapper">
+  <div class="page-header section-dark"
+    style="background-image: url('http://demos.creative-tim.com/paper-kit-2/assets/img/antoine-barres.jpg'); background-repeat: no-repeat; background-size: 100vw 100vh;">
+    <div class="filter"></div>
+    <div class="content-center">
+      <div class="container">
+        <div class="title-brand">
+          <h1 class="presentation-title">RADDIWALA</h1>
+          <div class="fog-low">
+            <img src="http://demos.creative-tim.com/paper-kit-2/assets/img/fog-low.png" alt="">
+          </div>
+          <div class="fog-low right">
+            <img src="http://demos.creative-tim.com/paper-kit-2/assets/img/fog-low.png" alt="">
+          </div>
+        </div>
+        <h2 class="presentation-subtitle text-center">Turning your rags into riches...</h2>
+      </div>
+    </div>
+    <div class="moving-clouds"
+      style="background-image: url('http://demos.creative-tim.com/paper-kit-2/assets/img/clouds.png'); "></div>
+  </div>
+</div>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+{% endblock content %}
