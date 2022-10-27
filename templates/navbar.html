@@ -8,7 +8,7 @@
         <li class="nav-button-Services"><a href="../services/book-form.html" id="Services">Book Raddiwala</a></li>
         <li class="nav-button-RateCard"><a href="{% url 'rate' %}">Rate Card</a></li>
         <li class="nav-button-Aboutus"><a href="{% url 'about' %}">About Us</a></li>
-        <li class="nav-button-Contactus"><a href="../contact/contact.html">Contact Us</a></li>
+        <li class="nav-button-Contactus"><a href="{% url 'contact' %}">Contact Us</a></li>
         {% if user.is_authenticated %}
         <li class="nav-button-Login" id="login"><a href="{% url 'logout' %}" id="log">Logout</a></li>
         <li class="nav-button-Login" id="login" style="float: right; margin-right: 10px"><a id="log">Hi, {{ user }}</a>

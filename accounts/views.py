@@ -1,7 +1,7 @@
 from unicodedata import category
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
-from .models import Profile, ProfileType
+from .models import Profile, ProfileType, Contact
 from django.contrib import messages
 
 
@@ -108,3 +108,16 @@ def about(request):
 
 def rate(request):
     return render(request, 'rate.html')
+
+
+def contact(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        message = request.POST['message']
+        cont = Contact.objects.create(name=name, email=email, message=message)
+        cont.save()
+        messages.info(request, 'Issue sent successfully')
+        return render(request, 'contact.html')
+    else:
+        return render(request, 'contact.html')
