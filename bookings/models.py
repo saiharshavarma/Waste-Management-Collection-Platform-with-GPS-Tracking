@@ -19,3 +19,12 @@ class Booking(models.Model):
 
     def __str__(self):
         return str(f'{self.user.id}' + ' ' + f'{self.user.username}' + ' ' + f'{self.date}' + ' ' + f'{self.mobile}')
+
+
+class Order(models.Model):
+    vendor = models.OneToOneField(User, on_delete=models.CASCADE)
+    customer = models.OneToOneField(Booking, on_delete=models.CASCADE)
+    vendor_location = models.CharField(max_length=100)
+
+    def __str__(self):
+        return str(f'{self.vendor.first_name}' + ' ' + f'{self.customer.first_name}' + ' ' + f'{self.vendor_location}')

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Booking
+from .models import Booking, Order
 import pandas
 from datetime import datetime
 # Create your views here.
@@ -26,3 +26,20 @@ def book_raddiwala(request):
         return render(request, "book-form.html", {})
     else:
         return render(request, "book-form.html", {})
+
+
+def view_bookings(request):
+    booking = Order.objects.get(vendor=request.user)
+    source = booking.vendor_location
+    destination = str(booking.customer.address) + \
+        ", " + str(booking.customer.city)
+    customer_name = str(booking.customer.first_name) + \
+        " " + str(booking.customer.last_name)
+    phone_no = str(booking.customer.mobile)
+    context = {
+        'source': source,
+        'destination': destination,
+        'customer_name': customer_name,
+        'phone_no': phone_no
+    }
+    return render(request, "view_bookings.html", context)

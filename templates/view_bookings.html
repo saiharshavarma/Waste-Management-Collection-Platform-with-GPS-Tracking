@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="resources/bootstrap.min.css">
+<script src="https://kit.fontawesome.com/ab2155e76b.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<div class="jumbotron">
+    <div class="container-fluid">
+        <h1>USER DETAILS</h1>
+        <p><b>Name : </b> {{ customer_name }}</p>
+        <p><b>PH No : </b> {{ phone_no }}</p>
+        <div class="hiddenfields">
+            <div class="form-group">
+                <label for="from" class="col-xs-2 control-label"><i class="far fa-dot-circle"></i></label>
+                <br>
+                <div class="col-xs-4">
+                    <input type="text" id="origin" placeholder="Origin" class="form-control" value="{{ source }}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="to" class="col-xs-2 control-label"><i class="fas fa-map-marker-alt"></i></label>
+                <br>
+                <div class="col-xs-4">
+                    <input type="text" id="destination" placeholder="Destination" class="form-control"
+                        value="{{ destination }}">
+                </div>
+            </div>
+            <br>
+            <div class="col-xs-offset-2 col-xs-10">
+                <button class="btn btn-success btn-lg " onclick="calculateDistance();"><i
+                        class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div id="googleMap">
+
+        </div>
+        <div id="output">
+
+        </div>
+    </div>
+</div>
+<script
+    src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyB3LIjtnf3i7jpwzGQJEuYyvqxHlD0sKfM"></script>
+<script src="{% static 'js/app.js' %}"></script>
+<script>
+    /*window.onpaint = function () {
+        console.log("Hi");
+        calculateDistance();
+    };*/
+    calculateDistance();
+</script>
+{% endblock content %}
