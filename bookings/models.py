@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from accounts.models import Profile
 
 # Create your models here.
 
@@ -22,9 +23,14 @@ class Booking(models.Model):
 
 
 class Order(models.Model):
-    vendor = models.OneToOneField(User, on_delete=models.CASCADE)
+    vendor = models.OneToOneField(Profile, on_delete=models.CASCADE)
     customer = models.OneToOneField(Booking, on_delete=models.CASCADE)
     vendor_location = models.CharField(max_length=100)
+    status = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(f'{self.vendor.first_name}' + ' ' + f'{self.customer.first_name}' + ' ' + f'{self.vendor_location}')
+        return str(f'{self.vendor.user.first_name}' + ' ' + f'{self.customer.user.first_name}' + ' ' + f'{self.vendor_location}')
+
+    def update(self):
+        self.status = True
+        super().save()

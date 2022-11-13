@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Booking, Order
+from accounts.models import Profile
 import pandas
 from datetime import datetime
 # Create your views here.
@@ -23,13 +24,13 @@ def book_raddiwala(request):
         booking = Booking.objects.create(user=user, date=date, time=time, first_name=first_name, last_name=last_name,
                                          address=address, city=city, state=state, zipcode=zipcode, email=email, mobile=mobile)
         booking.save()
-        return render(request, "book-form.html", {})
+        return redirect('accept_deny')
     else:
         return render(request, "book-form.html", {})
 
 
 def view_bookings(request):
-    booking = Order.objects.get(vendor=request.user)
+    booking = Order.objects.get(vendor=Profile.objects.get(user=request.user))
     source = booking.vendor_location
     destination = str(booking.customer.address) + \
         ", " + str(booking.customer.city)
@@ -43,3 +44,28 @@ def view_bookings(request):
         'phone_no': phone_no
     }
     return render(request, "view_bookings.html", context)
+
+
+def confirmed_bookings(request):
+    booking = Order.objects.get(
+        customer=Booking.objects.get(user=request.user))
+    source = booking.vendor_location
+    destination = str(booking.customer.address) + \
+        ", " + str(booking.customer.city)
+    vendor_name = str(booking.vendor.user.first_name) + \
+        " " + str(booking.vendor.user.last_name)
+    phone_no = str(booking.vendor.mobile)
+    context = {
+        'source': source,
+        'destination': destination,
+        'vendor_name': vendor_name,
+        'phone_no': phone_no
+    }
+    return render(request, "confirmed_booking.html", context)
+
+
+def accept_deny(request):
+    booking = Order.objects.get(
+        customer=Booking.objects.get(user=request.user))
+    booking.update()
+    return render(request, "booking_accept_deny.html", {})

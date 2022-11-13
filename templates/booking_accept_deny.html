@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="resources/bootstrap.min.css">
+<script src="https://kit.fontawesome.com/ab2155e76b.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<style>
+  body {
+    margin: 0;
+
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .accept {
+    color: #FFF;
+    background: #44CC44;
+    padding: 15px 20px;
+    box-shadow: 0 4px 0 0 #2EA62E;
+  }
+
+  .accept:hover {
+    background: #6FE76F;
+    box-shadow: 0 4px 0 0 #7ED37E;
+  }
+
+  .deny {
+    color: #FFF;
+    background: tomato;
+    padding: 15px 20px;
+    box-shadow: 0 4px 0 0 #CB4949;
+  }
+
+  .deny:hover {
+    background: rgb(255, 147, 128);
+    box-shadow: 0 4px 0 0 #EF8282;
+  }
+</style>
+<div style="padding-top:20%">
+  <center>
+    <br>
+    <a href="{% url 'bookings' %}" class="accept">ACCEPT <span class="fa fa-check"></span></a>
+    <a href="{% url 'home' %}" class="deny">DENY <span class="fa fa-close"></span></a>
+  </center>
+</div>
+<script>
+  var axios = require('axios');
+
+  var config = {
+    method: 'get',
+    url: 'https://maps.googleapis.com/maps/api/directions/json?origin=Chicago%2C%20IL&destination=Los%20Angeles%2C%20CA&waypoints=Joplin%2C%20MO%7COklahoma%20City%2C%20OK&key=AIzaSyB3LIjtnf3i7jpwzGQJEuYyvqxHlD0sKfM',
+    headers: {}
+  };
+
+  axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+</script>
+{% endblock content %}
