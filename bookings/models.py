@@ -17,16 +17,20 @@ class Booking(models.Model):
     zipcode = models.IntegerField()
     email = models.EmailField()
     mobile = models.IntegerField()
+    status = models.BooleanField(default=False)
 
     def __str__(self):
         return str(f'{self.user.id}' + ' ' + f'{self.user.username}' + ' ' + f'{self.date}' + ' ' + f'{self.mobile}')
+
+    def update(self):
+        self.status = True
+        super().save()
 
 
 class Order(models.Model):
     vendor = models.OneToOneField(Profile, on_delete=models.CASCADE)
     customer = models.OneToOneField(Booking, on_delete=models.CASCADE)
     vendor_location = models.CharField(max_length=100)
-    status = models.BooleanField(default=False)
 
     def __str__(self):
         return str(f'{self.vendor.user.first_name}' + ' ' + f'{self.customer.user.first_name}' + ' ' + f'{self.vendor_location}')

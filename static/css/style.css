@@ -20,9 +20,11 @@ body {
   
   /*Jumbotron*/
   .jumbotron {
-    background-color: transparent;
+    background: url('../images/impp11.jpeg');
     margin: 0;
     padding: 12px;
+    color: whitesmoke;
+    padding-bottom: 30px;
   }
   
   .jumbotron h1 {
@@ -56,6 +58,15 @@ body {
     color: black;
   }
 
-  /* .hiddenfields {
+  .hiddenfields {
     display: none !important; 
-  } */
+  }
+
+  #output {
+    width: 80% !important;
+  }
+
+  .accept_deny {
+    display: flex; justify-content:center; align-items: center; height: 100vh; flex-direction: column;
+    background: url('../images/impp11.jpeg');
+  }

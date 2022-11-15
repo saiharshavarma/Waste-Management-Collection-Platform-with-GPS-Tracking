@@ -5,10 +5,13 @@
     <ul class="nav-bar">
         <li class="nav-button-img"><img src="{% static 'images/logo.jpeg' %}" alt="" width="38px" height="35px"></li>
         <li class="nav-button-home"><a href="{% url 'home' %}">Home</a></li>
+        {% if user.username != "harsha" %}
         <li class="nav-button-Services"><a href="{% url 'book' %}" id="Services">Book Raddiwala</a></li>
+        <li class="nav-button-Services"><a href="{% url 'confirmed_bookings' %}" id="Services">Bookings</a></li>
         </li>
-        {% if user.username == "admin" %}
-        <li class="nav-button-Services"><a href="{% url 'bookings' %}" id="Services">Bookings</a></li>
+        {% endif %}
+        {% if user.username == "harsha" %}
+        <li class="nav-button-Services"><a href="{% url 'accept_deny' %}" id="Services">Bookings</a></li>
         {% endif %}
         <li class="nav-button-RateCard"><a href="{% url 'rate' %}">Rate Card</a></li>
         <li class="nav-button-Aboutus"><a href="{% url 'about' %}">About Us</a></li>

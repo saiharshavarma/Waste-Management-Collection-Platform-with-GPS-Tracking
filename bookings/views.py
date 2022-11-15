@@ -24,7 +24,7 @@ def book_raddiwala(request):
         booking = Booking.objects.create(user=user, date=date, time=time, first_name=first_name, last_name=last_name,
                                          address=address, city=city, state=state, zipcode=zipcode, email=email, mobile=mobile)
         booking.save()
-        return redirect('accept_deny')
+        return redirect('home')
     else:
         return render(request, "book-form.html", {})
 
@@ -47,25 +47,55 @@ def view_bookings(request):
 
 
 def confirmed_bookings(request):
-    booking = Order.objects.get(
-        customer=Booking.objects.get(user=request.user))
-    source = booking.vendor_location
-    destination = str(booking.customer.address) + \
-        ", " + str(booking.customer.city)
-    vendor_name = str(booking.vendor.user.first_name) + \
-        " " + str(booking.vendor.user.last_name)
-    phone_no = str(booking.vendor.mobile)
-    context = {
-        'source': source,
-        'destination': destination,
-        'vendor_name': vendor_name,
-        'phone_no': phone_no
-    }
-    return render(request, "confirmed_booking.html", context)
+    try:
+        b = Booking.objects.filter(status=False).order_by('-id')[0]
+        booking = Order.objects.get(
+            customer=Booking.objects.get(user=request.user))
+        if b.status == "False":
+            return render(request, "no_bookings.html", {})
+        else:
+            source = booking.vendor_location
+            destination = str(booking.customer.address) + \
+                ", " + str(booking.customer.city)
+            vendor_name = str(booking.vendor.user.first_name) + \
+                " " + str(booking.vendor.user.last_name)
+            phone_no = str(booking.vendor.mobile)
+            context = {
+                'source': source,
+                'destination': destination,
+                'vendor_name': vendor_name,
+                'phone_no': phone_no
+            }
+            return render(request, "confirmed_booking.html", context)
+    except:
+        return render(request, "no_bookings.html", {})
 
 
 def accept_deny(request):
-    booking = Order.objects.get(
-        customer=Booking.objects.get(user=request.user))
-    booking.update()
-    return render(request, "booking_accept_deny.html", {})
+    try:
+        booking = Booking.objects.filter(status=False).order_by('-id')[0]
+        first_name = booking.first_name
+        last_name = booking.last_name
+        name = first_name + ' ' + last_name
+        address = booking.address
+        context = {
+            'name': name,
+            'address': address
+        }
+        return render(request, "booking_accept_deny.html", context)
+    except:
+        return render(request, "no_bookings_currently.html", {})
+
+
+def accept(request):
+    b = Booking.objects.filter(status=False).order_by('-id')[0]
+    order = Order.objects.create(
+        vendor=Profile.objects.get(user=request.user), customer=b, vendor_location="VIT University, Main Building, VIT University, Vellore, Tamil Nadu, India")
+    order.save()
+    return redirect('bookings')
+
+
+def collected(request):
+    b = Booking.objects.filter(status=False).order_by('-id')[0]
+    b.update()
+    return redirect('home')

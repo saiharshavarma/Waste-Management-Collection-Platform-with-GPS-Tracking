@@ -6,6 +6,42 @@
 <script src="https://kit.fontawesome.com/ab2155e76b.js" crossorigin="anonymous"></script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<style>
+    body {
+        margin: 0;
+
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .accept {
+        color: #FFF;
+        background: #44CC44;
+        padding: 15px 20px;
+        box-shadow: 0 4px 0 0 #2EA62E;
+        margin-bottom: 30px;
+
+    }
+
+    .accept:hover {
+        background: #6FE76F;
+        box-shadow: 0 4px 0 0 #7ED37E;
+    }
+
+    .deny {
+        color: #FFF;
+        background: tomato;
+        padding: 15px 20px;
+        box-shadow: 0 4px 0 0 #CB4949;
+    }
+
+    .deny:hover {
+        background: rgb(255, 147, 128);
+        box-shadow: 0 4px 0 0 #EF8282;
+    }
+</style>
 <div class="jumbotron">
     <div class="container-fluid">
         <h1>USER DETAILS</h1>
@@ -41,6 +77,9 @@
         <div id="output">
 
         </div>
+    </div>
+    <div clas="container-fluid" style="width: 90%; text-align: right;">
+        <a href="{% url 'collected' %}" class="accept">Collected <span class="fa fa-check"></span></a>
     </div>
 </div>
 <script

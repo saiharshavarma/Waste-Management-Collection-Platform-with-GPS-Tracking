@@ -40,10 +40,16 @@
     box-shadow: 0 4px 0 0 #EF8282;
   }
 </style>
-<div style="padding-top:20%">
+<div class="accept_deny" style="color: white">
   <center>
-    <br>
-    <a href="{% url 'bookings' %}" class="accept">ACCEPT <span class="fa fa-check"></span></a>
+    <div style="width: 70%">
+      <h2>
+        Name: {{ name }} <br>
+        Address: {{ address }} <br>
+      </h2>
+    </div>
+    <br><br><br><br>
+    <a href="{% url 'accept' %}" class="accept">ACCEPT <span class="fa fa-check"></span></a>
     <a href="{% url 'home' %}" class="deny">DENY <span class="fa fa-close"></span></a>
   </center>
 </div>
